@@ -13,7 +13,7 @@ function initialize(indexHTML, debug) {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
       },width: 800, height: 600, transparent: true, frame: true, x: 0, y:0, acceptFirstMouse: true});
-      mainWindow.openDevTools();
+      mainWindow.openDevTools({mode:'detach'});
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
