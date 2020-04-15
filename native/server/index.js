@@ -12,7 +12,7 @@ function initialize(indexHTML, debug) {
   if(debug == true) {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
-      },width: 800, height: 600, transparent: true, frame: true, x: 0, y:0, acceptFirstMouse: true});
+      },width: 800, height: 600, transparent: true, frame: false, x: 0, y:0, acceptFirstMouse: true});
       mainWindow.openDevTools({mode:'detach'});
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
