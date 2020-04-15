@@ -120,14 +120,14 @@ function send_mouse_wheel_event(x, y) {
 
 function send_key_down_event(key, code, alt, ctrl, shift) {
     if(debug == true) {
-        console.log("send_key_down_event", x, y);
+        console.log("send_key_down_event", key, code, alt, ctrl, shift);
     }
     client_request(UI_CHINNAL_KEYDOWN, [key, code, alt, ctrl, shift]);
 }
 
 function send_key_up_event(key, code, alt, ctrl, shift) {
     if(debug == true) {
-        console.log("send_key_up_event", x, y);
+        console.log("send_key_up_event",  key, code, alt, ctrl, shift);
     }
     client_request(UI_CHINNAL_KEYUP, [key, code, alt, ctrl, shift]);
 }
