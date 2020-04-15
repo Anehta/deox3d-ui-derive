@@ -13,6 +13,7 @@ function initialize(indexHTML, debug) {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
       },width: 800, height: 600, transparent: true, frame: false, x: 0, y:0, acceptFirstMouse: true});
+      console.log("ui渲染线程 debug模式开启");
       mainWindow.openDevTools({mode:'detach'});
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
