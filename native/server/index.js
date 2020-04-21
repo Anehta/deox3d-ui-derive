@@ -7,18 +7,23 @@ const dialog = electron.dialog;
 var mainWindow = null;
 
 // 这里是把electron主线程当作server
-function initialize(indexHTML, debug, width, height, transparent, frame) {
+function initialize(indexHTML, debug, debug_detach, width, height, transparent, frame) {
   width = width ? width : 0;
   height = height ? height : 0;
   transparent = transparent ? transparent : true;
   frame = frame ? frame : false;
+  debug_detach = debug_detach ? debug_detach : true;
   // 创建浏览器窗口。
   if(debug == true) {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
       },width: width, height: height, transparent: transparent, frame: frame, x: 0, y:0, acceptFirstMouse: true});
       console.log("ui渲染线程 debug模式开启");
-      mainWindow.openDevTools({mode:'detach'});
+      if(debug_detach) {
+        mainWindow.openDevTools({mode:'detach'});
+      } else {
+        mainWindow.openDevTools();
+      }
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
