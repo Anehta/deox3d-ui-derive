@@ -7,7 +7,7 @@ const dialog = electron.dialog;
 var mainWindow = null;
 
 // 这里是把electron主线程当作server
-function initialize(indexHTML, debug, {width, height, transparent, frame}) {
+function initialize(indexHTML, debug, width, height, transparent, frame) {
   width = width ? width : 0;
   height = height ? height : 0;
   transparent = transparent ? transparent : true;
