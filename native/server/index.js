@@ -10,19 +10,19 @@ var mainWindow = null;
 function initialize(indexHTML, debug, debug_detach, width, height, transparent, frame) {
   width = width ? width : 0;
   height = height ? height : 0;
-  transparent = transparent ? transparent : true;
-  frame = frame ? frame : false;
-  debug_detach = debug_detach ? debug_detach : true;
+  transparent = transparent!=null ? transparent : true;
+  frame = frame ? frame!=null : false;
+  debug_detach = debug_detach!=null ? debug_detach : true;
   // 创建浏览器窗口。
   if(debug == true) {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
       },width: width, height: height, transparent: transparent, frame: frame, x: 0, y:0, acceptFirstMouse: true});
       console.log("ui渲染线程 debug模式开启");
-      if(debug_detach) {
-        mainWindow.openDevTools({mode:'detach'});
-      } else {
+      if(debug_detach == false) {
         mainWindow.openDevTools();
+      } else if(debug_detach == true) {
+        mainWindow.openDevTools({mode:'detach'});
       }
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
