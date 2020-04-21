@@ -7,22 +7,18 @@ const dialog = electron.dialog;
 var mainWindow = null;
 
 // 这里是把electron主线程当作server
-function initialize(indexHTML, debug, {width, height, transparent, frame}) {
-  width = width ? width : 0;
-  height = height ? height : 0;
-  transparent = transparent ? transparent : true;
-  frame = frame ? frame : false;
+function initialize(indexHTML, debug) {
   // 创建浏览器窗口。
   if(debug == true) {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
-      },width: width, height: height, transparent: transparent, frame: frame, x: 0, y:0, acceptFirstMouse: true});
+      },width: 0, height: 0, transparent: true, frame: false, x: 0, y:0, acceptFirstMouse: true});
       console.log("ui渲染线程 debug模式开启");
       mainWindow.openDevTools({mode:'detach'});
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
-      },width: width, height: height, transparent: transparent, frame: frame, x: 0, y:0, acceptFirstMouse: true});
+      },width: 0, height: 0, transparent: true, frame: false, x: 0, y:0, acceptFirstMouse: true});
   }
   
   // 加载应用的 index.html

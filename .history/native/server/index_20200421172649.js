@@ -22,7 +22,7 @@ function initialize(indexHTML, debug, {width, height, transparent, frame}) {
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
-      },width: width, height: height, transparent: transparent, frame: frame, x: 0, y:0, acceptFirstMouse: true});
+      },width: width, height: height, transparent: true, frame: false, x: 0, y:0, acceptFirstMouse: true});
   }
   
   // 加载应用的 index.html

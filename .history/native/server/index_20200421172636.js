@@ -16,13 +16,13 @@ function initialize(indexHTML, debug, {width, height, transparent, frame}) {
   if(debug == true) {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
-      },width: width, height: height, transparent: transparent, frame: frame, x: 0, y:0, acceptFirstMouse: true});
+      },width: width, height: height, transparent: transparent, frame: false, x: 0, y:0, acceptFirstMouse: true});
       console.log("ui渲染线程 debug模式开启");
       mainWindow.openDevTools({mode:'detach'});
   } else {
     mainWindow = new BrowserWindow({webPreferences: {
         nodeIntegration:true,
-      },width: width, height: height, transparent: transparent, frame: frame, x: 0, y:0, acceptFirstMouse: true});
+      },width: 0, height: 0, transparent: true, frame: false, x: 0, y:0, acceptFirstMouse: true});
   }
   
   // 加载应用的 index.html
