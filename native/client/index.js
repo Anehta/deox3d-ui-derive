@@ -132,6 +132,55 @@ function send_key_up_event(key, code, alt, ctrl, shift) {
     client_request(UI_CHINNAL_KEYUP, [key, code, alt, ctrl, shift]);
 }
 
+function send_custom_event(name, data) {
+    if(Object.prototype.toString.call(name) != '[object String]') {
+        console.error("Error:自定义事件Name必须是[Object String]")
+    }
+    if(Object.prototype.toString.call(data) != '[object Object]') {
+        console.error("Error:自定义事件Data必须是[Object Object]")
+    }
+    var result = JSON.stringify(data)
+    client_request(UI_CHINNAL_CUSTOM_EVENT, [name, result]);
+}
+
+var channel_count = 0;
+
+//自定义事件通道
+class CustonEventChannel {
+    constructor() {
+        //[{name,func}]
+        this.events = new Array();
+    }
+
+    addEventListener(name, func) {
+        channel_count = channel_count + 1;
+        this.events.push({name, func, channel_count});
+        return channel_count;
+    }
+
+    removeEventListener(index) {
+        let remove_index = this.events.findIndex(function(item) {
+            if(item.channel_count == index) {
+                return true
+            }
+        });
+        if(remove_index > -1) {
+            this.events.splice(remove_index,1)
+        }
+        return this.events.length
+    }
+
+    run(name, data) {
+        this.events.forEach(function(value, index) {
+            if(value.name == name) {
+                value.func(data);
+            }
+        })
+    }
+}
+
+window.send_custom_event = send_custom_event;
+window.custom_event_channel = new CustonEventChannel();
 
 function client_request(proto, arg) {
     session.request(proto, arg);
@@ -152,7 +201,10 @@ function init_rpc_client() {
             },
             [UI_CHINNAL_RESIZE]: (arg)=> {
                 ipcRenderer.send("resize", arg);
-            }
+            },
+            [UI_CHINNAL_CUSTOM_EVENT]: (arg) => {
+                window.custom_event_channel.run(arg[0], JSON.parse(arg[1]));
+            },
         }).then((ses) => {
             session = ses
             console.log("UIChannel Client 连接成功!")
